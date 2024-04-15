@@ -19,6 +19,7 @@ export default function homePage() {
   const [usertask, setusertask] = useState({
     tasks: "",
     desc: "",
+    isChecked : false
   });
 
   const getUser = async () => {
@@ -68,6 +69,7 @@ export default function homePage() {
       setusertask({
         tasks: "",
         desc: "",
+        isChecked : false
       });
     } catch (error: any) {
       toast.error(error.message);
@@ -81,7 +83,7 @@ export default function homePage() {
       <span>
         <h1>MyTasks</h1>
         {tasklist?.map((tasklist) => (
-          <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} />
+          <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
         ))}
         <form>
           <Input

@@ -2,24 +2,25 @@ import axios from "axios";
 import { NextResponse, NextRequest } from "next/server";
 import User from "@/models/userModel";
 import { connect } from "@/dbConfig/dbConfig";
+import removeByAttr from "@/helpers/findelement&del";
 
 
 connect(); 
 
 
-var removeByAttr = function(arr: any[], attr: string, value: any){
-    var i = arr.length;
-    while(i--){
-       if( arr[i] 
-           && arr[i].hasOwnProperty(attr) 
-           && (arguments.length > 2 && arr[i][attr] === value ) ){ 
+// var removeByAttr = function(arr: any[], attr: string, value: any){
+//     var i = arr.length;
+//     while(i--){
+//        if( arr[i] 
+//            && arr[i].hasOwnProperty(attr) 
+//            && (arguments.length > 2 && arr[i][attr] === value ) ){ 
 
-           arr.splice(i,1);
+//            arr.splice(i,1);
 
-       }
-    }
-    return arr;
-}
+//        }
+//     }
+//     return arr;
+// }
 export async function POST(request: NextRequest){
     try {
         const reqBody = await request.json();

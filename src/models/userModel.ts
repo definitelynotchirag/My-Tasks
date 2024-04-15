@@ -8,6 +8,12 @@ const taskSchema = new mongoose.Schema({
     desc : {
         type: String, 
         required :false
+    },
+    isChecked: {
+        type : Boolean,
+        // required: false,
+        default: false
+
     }
 })
 const userSchema = new mongoose.Schema({
