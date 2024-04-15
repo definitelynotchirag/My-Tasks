@@ -30,7 +30,7 @@ export default function Tasks({
   //       toast.error(error.message)
   //   }
   // };
-  // const Checked = getCheck();
+  const [Checked, setChecked] = useState(false);
 
   const ondelete = () => {
     try {
