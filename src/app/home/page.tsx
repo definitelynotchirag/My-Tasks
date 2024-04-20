@@ -34,6 +34,7 @@ export default function homePage() {
         user_id: response.data.data._id,
         tasklist: response.data.data.tasklist,
       });
+      
       //   console.log(newUser)
     } catch (error: any) {
       console.log(error.message);
@@ -81,22 +82,23 @@ export default function homePage() {
     }
   };
 
-  //   console.log(tasklist);
   const incompletetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === false)
   const completetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === true)
+  //   console.log(tasklist);
+  
   return (
       
       <div >
       <span>
         <h1>MyTasks</h1>
         <span onMouseOver={getUser}>
-        <h2>InComplete</h2>
+        {/* <h2>InComplete</h2> */}
         {incompletetasks?.map((tasklist) => (
           <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
         ))}
         </span>
         <span onMouseOver={getUser}>
-        <h2>Complete</h2>
+        {/* <h2>Complete</h2> */}
         {completetasks?.map((tasklist) => (
           <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
         ))}

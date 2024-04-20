@@ -59,7 +59,7 @@ export default function Tasks({
         tasks,
         Checked,
       });
-      console.log(response);
+      // console.log(response);
     } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
