@@ -18,19 +18,27 @@ export default function Tasks({
   desc: any;
   isChecked: any;
 }) {
+  // console.log(isChecked);
+  const [Checked, setChecked] = useState(isChecked);
+  
+  const getCheck = async () => {
+    try {
+      const response = await axios.post("/api/tasks/getcheck", { user, tasks });
+      // console.log(response);
 
-  // const getCheck = async () => {
-  //   try {
-  //       const response = await axios.post("/api/tasks/getcheck", {user,tasks})
-  //       console.log(response);
-  //       return response.data.data;
-        
-  //   } catch (error:any) {
-  //       console.log(error.message);
-  //       toast.error(error.message)
-  //   }
-  // };
-  const [Checked, setChecked] = useState(false);
+      let ischedk = await response.data.data;
+      setChecked(ischedk);
+
+      return response.data.data;
+    } catch (error: any) {
+      console.log(error.message);
+      toast.error(error.message);
+    }
+  };
+
+  // useEffect(() => {
+  //   getCheck();
+  // }, []);
 
   const ondelete = () => {
     try {
@@ -42,6 +50,7 @@ export default function Tasks({
       toast.error(error.message);
     }
   };
+
   const oncheck = () => {
     try {
       const response = axios.post("/api/tasks/checktask", {
@@ -55,13 +64,18 @@ export default function Tasks({
       toast.error(error.message);
     }
   };
+
+  useEffect(() => {
+    oncheck();
+  }, [Checked]);
+
   return (
     <div>
       <Checkbox
         id="taskscheck"
         onCheckedChange={(e) => setChecked(Checked ? false : true)}
-        onClick={oncheck}
-        // onChange={(e) => setChecked(true)}
+        // onClick={oncheck}
+        // // onChange={(e) => setChecked(true)}
         checked={Checked}
       />
       <label>{tasks}</label>
