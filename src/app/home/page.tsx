@@ -42,9 +42,10 @@ export default function homePage() {
   };
 
   const tasklist = user.tasklist;
+
   useEffect(() => {
     getUser();
-  }, []);
+  }, [usertask]);
 
   const deladdtasks = async () => {
     try {
@@ -60,32 +61,47 @@ export default function homePage() {
     // getUser();
     try {
       // console.log({user,usertask})
-      //   e.preventDefault();
-      const response = await axios.post("/api/tasks/addtasks", {
-        user,
-        usertask,
-      });
-      // console.log(response);
+      e.preventDefault();
       setusertask({
         tasks: "",
         desc: "",
         isChecked : false
       });
+      const response = await axios.post("/api/tasks/addtasks", {
+        user,
+        usertask,
+      });
+      // document.getElementById("usertask").value = "";
+      // $("#submitForm").val("");
+      
+      
+      // console.log(response);
     } catch (error: any) {
       toast.error(error.message);
     }
   };
 
   //   console.log(tasklist);
-
+  const incompletetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === false)
+  const completetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === true)
   return (
-    <div>
+      
+      <div >
       <span>
         <h1>MyTasks</h1>
-        {tasklist?.map((tasklist) => (
+        <span onMouseOver={getUser}>
+        <h2>InComplete</h2>
+        {incompletetasks?.map((tasklist) => (
           <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
         ))}
-        <form>
+        </span>
+        <span onMouseOver={getUser}>
+        <h2>Complete</h2>
+        {completetasks?.map((tasklist) => (
+          <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
+        ))}
+        </span>
+        <form onSubmit={addtasks}>
           <Input
             id="usertask"
             type="text"
@@ -94,10 +110,12 @@ export default function homePage() {
             onChange={(e) => {
               setusertask({ ...usertask, tasks: e.target.value });
             }}
-            onClick={getUser}
+            // onSubmit={}
+            
+            
           />
 
-          <Button type="submit" onClick={addtasks} onClickCapture={getUser}>
+          <Button type="submit">
             <Cross />
           </Button>
           <br/>
@@ -109,6 +127,8 @@ export default function homePage() {
         <hr />
         <Button>Logout</Button>
       </span>
-    </div>
+    
+      
+    </div  >
   );
 }

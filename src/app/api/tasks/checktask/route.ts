@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const { user, tasks , Checked} = reqBody;
 
     // console.log(tasks)
-    console.log(Checked)
+    // console.log(Checked)
     const updatedtask = user.tasklist.map((task:any) => {
       // console.log(task)
       if (task.tasks === tasks && Checked === true) {
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
         return { ...task };
       }
     });
-    console.log(updatedtask);
+    // console.log(updatedtask);
     const userr = await User.findByIdAndUpdate(user.user_id, {
       tasklist: updatedtask,
     });
