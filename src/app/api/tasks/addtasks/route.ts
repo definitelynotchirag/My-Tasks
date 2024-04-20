@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const currentUser = await User.findByIdAndUpdate(user.user_id, {
       tasklist: user.tasklist,
     });
-    console.log(currentUser);
+    // console.log(currentUser);
 
     return NextResponse.json(
       { message: "Task Added Successfully" },

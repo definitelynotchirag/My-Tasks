@@ -91,13 +91,13 @@ export default function homePage() {
       <div >
       <span>
         <h1>MyTasks</h1>
-        <span onMouseOver={getUser}>
+        <span >
         {/* <h2>InComplete</h2> */}
         {incompletetasks?.map((tasklist) => (
           <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
         ))}
         </span>
-        <span onMouseOver={getUser}>
+        <span >
         {/* <h2>Complete</h2> */}
         {completetasks?.map((tasklist) => (
           <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
