@@ -2,15 +2,24 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import router from "next/navigation";
+import {useRouter} from "next/navigation";
 import Tasks from "../components/tasks";
 import toast from "react-hot-toast";
 import { NextResponse } from "next/server";
 import { Cross } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
+import {
+  Button,
+  Anchor,
+  Input,
+  PasswordInput,
+  InputWrapper,
+} from "@mantine/core";
+
 
 export default function homePage() {
+  const router = useRouter();
   const [user, setUser] = useState({
     user_id: "",
     tasklist: [],
@@ -19,7 +28,7 @@ export default function homePage() {
   const [usertask, setusertask] = useState({
     tasks: "",
     desc: "",
-    isChecked : false
+    isChecked: false,
   });
 
   const getUser = async () => {
@@ -34,7 +43,7 @@ export default function homePage() {
         user_id: response.data.data._id,
         tasklist: response.data.data.tasklist,
       });
-      
+
       //   console.log(newUser)
     } catch (error: any) {
       console.log(error.message);
@@ -51,14 +60,19 @@ export default function homePage() {
   const deladdtasks = async () => {
     try {
       // console.log(user)
-      const response = await axios.post("/api/tasks/delalltasks", {user});
+      const response = await axios.post("/api/tasks/delalltasks", { user });
+      setusertask({
+        tasks: "",
+        desc: "",
+        isChecked: false,
+      });
       // console.log(response)
     } catch (error: any) {
-        toast.error(error.message)
+      toast.error(error.message);
     }
   };
 
-  const addtasks = async (e:any) => {
+  const addtasks = async (e: any) => {
     // getUser();
     try {
       // console.log({user,usertask})
@@ -66,7 +80,7 @@ export default function homePage() {
       setusertask({
         tasks: "",
         desc: "",
-        isChecked : false
+        isChecked: false,
       });
       const response = await axios.post("/api/tasks/addtasks", {
         user,
@@ -74,63 +88,91 @@ export default function homePage() {
       });
       // document.getElementById("usertask").value = "";
       // $("#submitForm").val("");
-      
-      
+
       // console.log(response);
     } catch (error: any) {
       toast.error(error.message);
     }
   };
+  const onlogout = async () => {
+    try {
+      const response = await axios.get('/api/users/logout')
+      toast.success("Logout Successful");
+      router.push('/login')
+      
+    } catch (error:any) {
+      toast.error(error.message);
+      
+    }
+  }
 
-  const incompletetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === false)
-  const completetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === true)
+  // const incompletetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === false)
+  // const completetasks = tasklist?.filter((tasklist) => (tasklist as any).isChecked === true)
   //   console.log(tasklist);
-  
+
   return (
-      
-      <div >
-      <span>
-        <h1>MyTasks</h1>
-        <span >
-        {/* <h2>InComplete</h2> */}
-        {incompletetasks?.map((tasklist) => (
-          <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
-        ))}
-        </span>
-        <span >
-        {/* <h2>Complete</h2> */}
-        {completetasks?.map((tasklist) => (
-          <Tasks user={user} tasks={(tasklist as any)?.tasks} desc={(tasklist as any)?.desc} isChecked = {(tasklist as any)?.isChecked} />
-        ))}
-        </span>
-        <form onSubmit={addtasks}>
-          <Input
-            id="usertask"
-            type="text"
-            placeholder="Enter Task"
-            value={usertask.tasks}
-            onChange={(e) => {
-              setusertask({ ...usertask, tasks: e.target.value });
-            }}
-            // onSubmit={}
-            
-            
-          />
+    <div>
+      <div className="flex justify-between align-middle">
+        <h1 className="text-white text-xl">MyTasks</h1>
+        <Button
+          size="compact-sm"
+          variant="filled"
+          color="rgba(39,0,87,1)"
+          radius="sm"
+          onClick={onlogout}
+        >
+          Logout
+        </Button>
+      </div>
+      {/* <h2>InComplete</h2> */}
+      {tasklist?.map((tasklist) => (
+        <Tasks
+          user={user}
+          tasks={(tasklist as any)?.tasks}
+          desc={(tasklist as any)?.desc}
+          isChecked={(tasklist as any)?.isChecked}
+        />
+      ))}
+      <form onSubmit={addtasks}>
+        <div className="flex justify-between align-middle">
+          <div className="p-2">
+            <Input
+              id="usertask"
+              type="text"
+              radius="md"
+              placeholder="Enter Task"
+              value={usertask.tasks}
+              onChange={(e) => {
+                setusertask({ ...usertask, tasks: e.target.value });
+              }}
+              // onSubmit={}
+            />
+          </div>
 
-          <Button type="submit">
-            <Cross />
+          <div className="p-2">
+            <Button
+              type="submit"
+              radius="md"
+              variant="filled"
+              color="rgba(39,0,87,1)"
+            >
+              <Cross />
+            </Button>
+          </div>
+        </div>
+
+        <div className="text-center p-2">
+          <Button
+            type="reset"
+            radius="md"
+            variant="filled"
+            color="rgba(39,0,87,1)"
+            onClick={deladdtasks}
+          >
+            Clear
           </Button>
-          <br/>
-          <Button onClick={deladdtasks}>Clear</Button>
-        </form>
-        <hr />
-        
-
-        <hr />
-        <Button>Logout</Button>
-      </span>
-    
-      
-    </div  >
+        </div>
+      </form>
+    </div>
   );
 }

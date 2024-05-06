@@ -1,12 +1,28 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox";
+// import { Checkbox } from "@/components/ui/checkbox";
 import toast from "react-hot-toast";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
+
 import { CircleX } from "lucide-react";
+import { ArchiveX } from 'lucide-react';
+import { Trash2 } from 'lucide-react';
 import axios from "axios";
 import { getChecked } from "@/helpers/getChecked";
+import {
+  Button,
+  Anchor,
+  Input,
+  PasswordInput,
+  InputWrapper,
+  Checkbox,
+  createTheme,
+  MantineProvider,
+} from "@mantine/core";
 
+const theme = createTheme({
+  cursorType: "pointer",
+});
 
 export default function Tasks({
   user,
@@ -21,7 +37,7 @@ export default function Tasks({
 }) {
   // console.log(isChecked);
   const [Checked, setChecked] = useState(isChecked);
-  
+
   const getCheck = async () => {
     try {
       const response = await axios.post("/api/tasks/getcheck", { user, tasks });
@@ -72,20 +88,44 @@ export default function Tasks({
 
   return (
     <div>
-      <Checkbox
-        id="taskscheck"
-        onCheckedChange={(e) => setChecked(Checked ? false : true)}
-        // onClick={oncheck}
-        // // onChange={(e) => setChecked(true)}
-        checked={Checked}
-      />
-      <label>{tasks}</label>
-      <small>{desc}</small>
-      <form>
-        <Button>
+      <div className="flex justify-items-end justify-between align-middle p-2.5">
+        <MantineProvider theme={theme}>
+          <Checkbox
+            id="taskscheck"
+            color="rgba(39,0,87,1)"
+            iconColor="dark.8"
+            size="md"
+            onChange={(e) => setChecked(Checked ? false : true)}
+            // onClick={oncheck}
+            // // onChange={(e) => setChecked(true)}
+            checked={Checked}
+            label={<label className="text-white text-xl pb-1.5">{tasks}</label>}
+          />
+        </MantineProvider>
+
+        <div className="justify-self-end">
+          <form>
+          <Button
+            size="compact-sm"
+            variant="filled"
+            color="rgba(39,0,87,1)"
+            radius="sm"
+          >
+            <Trash2 size={17} onClick={ondelete} />
+          </Button>
+          </form>
+        </div>
+
+        {/* <label className="text-white p-3">{tasks}</label> */}
+        {/* <form>
+        <Button size="compact-sm"
+          variant="filled"
+          color="rgba(39,0,87,1)"
+          radius="sm">
           <CircleX onClick={ondelete} />
         </Button>
-      </form>
+      </form> */}
+      </div>
     </div>
   );
 }
