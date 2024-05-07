@@ -89,7 +89,7 @@ const LoginPage = () => {
 
       <div className="text-center ">
       <Anchor href="/signup" underline="hover" size="sm" c="rgba(39,0,87,1)">
-        Don't Have a Account?
+        Don&apos;t Have a Account?
       </Anchor>
       </div>
     </div>

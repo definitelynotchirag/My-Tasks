@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { NextResponse } from "next/server";
 import { Cross } from "lucide-react";
 import classes from './home.module.css'
+import { useContext } from "react";
 // import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 import {
@@ -19,12 +20,13 @@ import {
 } from "@mantine/core";
 
 
-export default function homePage() {
+export default function Home() {
   const router = useRouter();
   const [user, setUser] = useState({
     user_id: "",
     tasklist: [],
   });
+  
 
   const [usertask, setusertask] = useState({
     tasks: "",
@@ -32,29 +34,29 @@ export default function homePage() {
     isChecked: false,
   });
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get("/api/users/home");
-      //   console.log("no");
-      //   console.log(response.data);
-      // console.log(response.data.data.tasklist)
-
-      const newUser = setUser({
-        ...user,
-        user_id: response.data.data._id,
-        tasklist: response.data.data.tasklist,
-      });
-
-      //   console.log(newUser)
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
-  };
-
+  
   const tasklist = user.tasklist;
-
+  
   useEffect(() => {
+    const getUser = async () => {
+      try {
+        const response = await axios.get("/api/users/home");
+        //   console.log("no");
+        //   console.log(response.data);
+        // console.log(response.data.data.tasklist)
+  
+        const newUser = setUser({
+          ...user,
+          user_id: response.data.data._id,
+          tasklist: response.data.data.tasklist,
+        });
+  
+        //   console.log(newUser)
+      } catch (error: any) {
+        console.log(error.message);
+        toast.error(error.message);
+      }
+    };
     getUser();
   }, [usertask]);
 
@@ -130,6 +132,7 @@ export default function homePage() {
       <div className="overflow-y-auto max-h-36 p-2 pb-2 scroll-m-0">
       {tasklist?.map((tasklist) => (
         <Tasks
+          key={user.user_id}
           user={user}
           tasks={(tasklist as any)?.tasks}
           desc={(tasklist as any)?.desc}

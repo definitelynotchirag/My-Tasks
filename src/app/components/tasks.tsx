@@ -68,21 +68,21 @@ export default function Tasks({
     }
   };
 
-  const oncheck = () => {
-    try {
-      const response = axios.post("/api/tasks/checktask", {
-        user,
-        tasks,
-        Checked,
-      });
-      // console.log(response);
-    } catch (error: any) {
-      console.log(error.message);
-      toast.error(error.message);
-    }
-  };
-
+  
   useEffect(() => {
+    const oncheck = () => {
+      try {
+        const response = axios.post("/api/tasks/checktask", {
+          user,
+          tasks,
+          Checked,
+        });
+        // console.log(response);
+      } catch (error: any) {
+        console.log(error.message);
+        toast.error(error.message);
+      }
+    };
     oncheck();
   }, [Checked]);
 
