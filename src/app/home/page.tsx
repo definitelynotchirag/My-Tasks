@@ -125,6 +125,7 @@ export default function homePage() {
         </Button>
       </div>
       {/* <h2>InComplete</h2> */}
+      <div className="overflow-y-auto max-h-36 p-2 scroll-m-0">
       {tasklist?.map((tasklist) => (
         <Tasks
           user={user}
@@ -133,6 +134,7 @@ export default function homePage() {
           isChecked={(tasklist as any)?.isChecked}
         />
       ))}
+      </div>
       <form onSubmit={addtasks}>
         <div className="flex justify-between align-middle">
           <div className="p-2">
