@@ -1,7 +1,17 @@
 .button {
-    &:disabled,
-    &[data-disabled] {
-      border-color: light-dark(var(--mantine-color-purple-3), var(--mantine-color-purple-4));
-      background-color: rgb(32, 1, 32);
-    }
+  &:disabled,
+  &[data-disabled] {
+    color:gray;
+    border-color: rgba(39, 0, 87, 1);
+    background-color: rgb(31, 30, 30);
   }
+}
+
+.input {
+  background-color: rgb(31, 30, 30);
+
+  &:focus-within {
+    outline: 2px solid rgba(39, 0, 87, 1);
+    border-color: transparent;
+  }
+}

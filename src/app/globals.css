@@ -88,11 +88,11 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #000;
+  background: #0c0c0c;
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #755bec;
+  background: rgba(39,0,87,1);
 }

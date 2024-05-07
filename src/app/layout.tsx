@@ -30,7 +30,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <main className="mx-auto bg-bg-violet">
           <div className="container flex items-start justify-center min-h-screen">
-            <div className="px-24 py-20 mt-24 mw-1 rounded-lg bg-black shadow-3xl ">
+            <div className="px-28 py-20 mt-24 mw-1 rounded-lg bg-black shadow-3xl ">
           {/* <h1 className="text-white">My Tasks</h1> */}
               <MantineProvider>{children}</MantineProvider>
             </div>

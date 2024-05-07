@@ -1,0 +1,10 @@
+.input{
+    background-color: rgb(31, 30, 30);
+    outline: 1px #383838;
+    outline-offset: -1px;
+    border-color: #383838;
+    &:focus{
+        border-color: rgba(39,0,87,1);
+        border-width: 3px;
+    }
+}

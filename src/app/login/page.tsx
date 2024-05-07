@@ -27,7 +27,7 @@ const LoginPage = () => {
     try {
       const response = await axios.post("/api/users/login", user);
       // console.log(response.data);
-      router.push("/home");
+      router.push("/");
     } catch (error: any) {
       toast.error("Error:", error.message);
     }
@@ -48,11 +48,11 @@ const LoginPage = () => {
         <Input
           variant="filled"
           radius="md"
-          color="rgba(68, 1, 74, 1)"
           id="email"
           type="email"
           value={user.email}
           placeholder="Email"
+          classNames={{input:classes.input}}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
       </div>
@@ -64,6 +64,7 @@ const LoginPage = () => {
         id="password"
         type="password"
         value={user.password}
+        classNames={{input:classes.input}}
         placeholder="Password"
         onChange={(e) => setUser({ ...user, password: e.target.value })}
       />

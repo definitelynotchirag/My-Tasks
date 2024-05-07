@@ -26,7 +26,7 @@ export default function SignUpPage() {
   const OnSignUp = async () => {
     try {
       const response = await axios.post("/api/users/signup", user);
-      router.push("/home");
+      router.push("/");
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -45,15 +45,17 @@ export default function SignUpPage() {
   }, [user]);
 
   return (
-    <div className="text-center">
+    <div className="text-center ">
       <h1 className="text-center text-xl text-white p-4">MyTasks</h1>
       <div className="text-center p-1">
         <label className="text-white p-1">Email</label>
         <Input
           id="email"
+          variant="filled"
           type="email"
           radius="md"
           value={user.email}
+          classNames={{input:classes.input}}
           onChange={(e) => setUser({ ...user, email: e.target.value })}
           placeholder="Email"
         />
@@ -62,9 +64,11 @@ export default function SignUpPage() {
         <label className="text-white">Username</label>
         <Input
           id="username"
+          variant="filled"
           type="text"
           radius="md"
           value={user.username}
+          classNames={{input:classes.input}}
           onChange={(e) => setUser({ ...user, username: e.target.value })}
           placeholder="Username"
         />
@@ -74,8 +78,10 @@ export default function SignUpPage() {
         <PasswordInput
           id="password"
           type="password"
+          variant="filled"
           radius="md"
           value={user.password}
+          classNames={{input:classes.input}}
           onChange={(e) => setUser({ ...user, password: e.target.value })}
           placeholder="Password"
         />

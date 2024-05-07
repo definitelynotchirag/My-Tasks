@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import { Checkbox } from "@/components/ui/checkbox";
 import toast from "react-hot-toast";
 // import { Button } from "@/components/ui/button";
-
+import classes from './tasks.module.css'
 import { CircleX } from "lucide-react";
 import { ArchiveX } from 'lucide-react';
 import { Trash2 } from 'lucide-react';
@@ -93,13 +93,15 @@ export default function Tasks({
           <Checkbox
             id="taskscheck"
             color="rgba(39,0,87,1)"
-            iconColor="dark.8"
-            size="md"
+            iconColor="white"
+            size="sm"
+            radius='sm'
+            classNames={{input:classes.input}}
             onChange={(e) => setChecked(Checked ? false : true)}
             // onClick={oncheck}
             // // onChange={(e) => setChecked(true)}
             checked={Checked}
-            label={<label className="text-white text-xl pb-1.5">{tasks}</label>}
+            label={<div className="text-white text-lg -m-1 pl-1">{tasks}</div>}
           />
         </MantineProvider>
 
